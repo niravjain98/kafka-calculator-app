@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres:alpine
+    container_name: pix_reaction_db
+    environment:
+      POSTGRES_USER: pix_user
+      POSTGRES_PASSWORD: pixservice123
+      POSTGRES_DB: pix_reaction_db
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+    ports:
+      - "5430:5432"
+
+volumes:
+  postgres-db:
+
+networks:
+  default:
