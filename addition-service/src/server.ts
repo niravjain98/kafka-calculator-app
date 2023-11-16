@@ -6,7 +6,7 @@ import "../src/kafka/consumer";
 const mongoose = require("mongoose");
 
 const app = express();
-const PORT = 3001;
+const PORT = 3005;
 
 app.use(bodyParser.json());
 

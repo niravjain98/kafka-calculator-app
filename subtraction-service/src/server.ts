@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import "../src/kafka/consumer";
 
 const app = express();
-const PORT = 3002;
+const PORT = 3009;
 
 app.use(bodyParser.json());
 

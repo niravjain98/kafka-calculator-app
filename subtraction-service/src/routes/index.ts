@@ -2,8 +2,19 @@ import { Router, Request, Response } from "express";
 import { subtractionOperation } from "../controller/logic";
 
 const redis = require("redis");
-const client = redis.createClient();
-client.connect().then(() => {});
+
+const client = redis.createClient({
+  url: "redis://localhost:6379",
+});
+
+client
+  .connect()
+  .then(() => {
+    console.log("Connected to Redis");
+  })
+  .catch((err: Error) => {
+    console.error("Redis connection error", err);
+  });
 
 const router = Router();
 
@@ -32,8 +43,10 @@ router.post("/subtraction-service/sub", async (req: Request, res: Response) => {
     let result;
 
     if (cachedCalculation) {
+      console.log("From cache");
       result = Number(cachedCalculation);
     } else {
+      console.log("From logic");
       result = subtractionOperation(argOne, argTwo);
       await client.hSet("subMap", operationString, JSON.stringify(result));
     }
