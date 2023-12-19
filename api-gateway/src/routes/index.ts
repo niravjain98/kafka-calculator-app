@@ -96,7 +96,7 @@ router.post("/subtraction-gateway", async (req: Request, res: Response) => {
       messages: [{ value: JSON.stringify({ correlationId, operands }) }],
     });
     eventEmitter.once(correlationId, (response: string) => {
-      res.status(200).json({ response });
+      res.status(200).json({ result: response });
     });
 
     setTimeout(() => {

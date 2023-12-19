@@ -4,9 +4,11 @@ import bodyParser from "body-parser";
 
 const app = express();
 const PORT = 3010;
+const cors = require("cors");
 
 app.use(bodyParser.json());
 
+app.use(cors());
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });

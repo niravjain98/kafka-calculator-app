@@ -10,7 +10,7 @@
     "start:division": "cd division-service && npm run dev",
     "start:multiplication": "cd multiplication-service && npm run dev",
     "start:subtraction": "cd subtraction-service && npm run dev",
-    "start:docker": "docker-compose down && docker volume rm calculator-app_kafka_data && docker-compose up",
+    "start:docker": "docker-compose down && docker-compose up",
     "start:services": "concurrently \"npm run start:addition\" \"npm run start:api-gateway\" \"npm run start:calculator-front\" \"npm run start:division\" \"npm run start:multiplication\" \"npm run start:subtraction\"",
     "start:all": "concurrently \"npm run start:services\" \"npm run start:docker\""
   },
