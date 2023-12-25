@@ -21,7 +21,7 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://host.docker.internal:29092
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,PLAINTEXT_HOST://0.0.0.0:29092
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
@@ -51,6 +51,58 @@ services:
     image: memcached:latest
     ports:
       - "11211:11211"
+
+  addition-service:
+    build:
+      context: ./addition-service
+    depends_on:
+      - kafka
+    ports:
+      - "3005:3005"
+
+  division-service:
+    build:
+      context: ./division-service
+    depends_on:
+      - kafka
+      - memcached
+    ports:
+      - "3004:3004"
+
+  multiplication-service:
+    build:
+      context: ./multiplication-service
+    depends_on:
+      - kafka
+      - postgres
+    ports:
+      - "3003:3003"
+
+  subtraction-service:
+    build:
+      context: ./subtraction-service
+    depends_on:
+      - kafka
+      - redis
+    ports:
+      - "3009:3009"
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "3010:3010"
+    depends_on:
+      - addition-service
+      - division-service
+      - multiplication-service
+      - subtraction-service
+
+  calculator-frontend:
+    build: ./calculator-frontend
+    ports:
+      - "3000:3000" 
+    depends_on:
+      - api-gateway
 
 volumes:
   postgres-db:

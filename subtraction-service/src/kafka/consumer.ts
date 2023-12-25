@@ -3,7 +3,7 @@ import axios from "axios";
 
 const kafka = new Kafka({
   clientId: "subtraction-service",
-  brokers: ["localhost:29092"],
+  brokers: ["kafka:29092"],
 });
 
 const consumer: Consumer = kafka.consumer({ groupId: "subtraction-group" });
@@ -17,6 +17,7 @@ interface KafkaMessage {
 }
 
 const processMessage = async (message: KafkaMessage) => {
+  console.log("3");
   const parsedValue = JSON.parse(message.value.toString());
   const correlationId = parsedValue.correlationId;
   const operands = parsedValue.operands;
@@ -27,6 +28,7 @@ const processMessage = async (message: KafkaMessage) => {
         operands: operands,
       }
     );
+    console.log("4");
     await producer.send({
       topic: "subtraction_response_topic",
       messages: [
@@ -36,6 +38,7 @@ const processMessage = async (message: KafkaMessage) => {
         },
       ],
     });
+
     console.log("Sent result to subtraction_response_topic:", response.data);
   } catch (err) {
     console.error("Error calling the API or producing Kafka message:", err);

@@ -19,8 +19,8 @@ router.post(
         return res.status(400).json({ error: "Invalid input" });
       }
 
-      const argOne = Number(operands[0]);
-      const argTwo = Number(operands[1]);
+      const argOne = Math.floor(Number(operands[0]));
+      const argTwo = Math.floor(Number(operands[1]));
 
       if (isNaN(argOne) || isNaN(argTwo)) {
         return res.status(400).json({ error: "Operands must be numbers" });

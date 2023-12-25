@@ -64,6 +64,7 @@ const Calculator = () => {
           setArithmetic("");
           break;
         case "-":
+          console.log("1");
           result = await subtraction(operands);
           setfDigit(result.result.toString());
           setlDigit("");

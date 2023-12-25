@@ -4,7 +4,7 @@ import { subtractionOperation } from "../controller/logic";
 const redis = require("redis");
 
 const client = redis.createClient({
-  url: "redis://localhost:6379",
+  url: "redis://redis:6379",
 });
 
 client
@@ -25,6 +25,7 @@ router.get("/", (req: Request, res: Response) => {
 router.post("/subtraction-service/sub", async (req: Request, res: Response) => {
   try {
     const { operands } = req.body;
+    console.log("5");
 
     if (!operands || !Array.isArray(operands) || operands.length !== 2) {
       return res.status(400).json({ error: "Invalid input" });
@@ -38,8 +39,11 @@ router.post("/subtraction-service/sub", async (req: Request, res: Response) => {
     }
 
     const operationString = operands.join("-");
+    console.log("6");
     const cachedCalculation = await client.hGet("subMap", operationString);
+    console.log(cachedCalculation, "7777");
 
+    console.log("8");
     let result;
 
     if (cachedCalculation) {

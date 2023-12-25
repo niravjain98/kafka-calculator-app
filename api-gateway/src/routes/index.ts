@@ -7,7 +7,7 @@ const eventEmitter = new events.EventEmitter();
 
 const kafka = new Kafka({
   clientId: "api-gateway",
-  brokers: ["localhost:29092"],
+  brokers: ["kafka:29092"],
 });
 
 const producer: Producer = kafka.producer();
@@ -85,6 +85,7 @@ router.post("/subtraction-gateway", async (req: Request, res: Response) => {
   try {
     const { operands } = req.body;
     const correlationId = uuidv4();
+    console.log("2");
 
     if (!operands || !Array.isArray(operands) || operands.length !== 2) {
       return res.status(400).json({ error: "Invalid input" });

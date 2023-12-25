@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import { divisionOperation } from "../controller/logic";
 import Memcached from "memcached";
 
-let memcached = new Memcached("localhost:11211");
+let memcached = new Memcached("memcached:11211");
 
 const router = Router();
 

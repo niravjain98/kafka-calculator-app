@@ -4,8 +4,8 @@ import { Operation } from "./entity/Operation";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: "localhost",
-  port: 5430,
+  host: "postgres",
+  port: 5432,
   username: "pix_user",
   password: "pixservice123",
   database: "pix_reaction_db",

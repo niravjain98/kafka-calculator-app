@@ -3,7 +3,7 @@ import axios from "axios";
 
 const kafka = new Kafka({
   clientId: "multiplication-service",
-  brokers: ["localhost:29092"],
+  brokers: ["kafka:29092"],
 });
 
 const consumer: Consumer = kafka.consumer({ groupId: "multiplication-group" });
